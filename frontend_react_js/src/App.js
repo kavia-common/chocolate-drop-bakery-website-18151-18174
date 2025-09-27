@@ -111,8 +111,8 @@ Details: ${message || '-'}`;
                   </InfoCard>
                 </div>
                 <div className="hero-cta">
-                  <button className="btn" onClick={() => scrollToSection('specials')}>Today’s Specials</button>
-                  <button className="btn btn-secondary" onClick={() => scrollToSection('gallery')}>View Gallery</button>
+                  <button className="btn btn-primary" onClick={() => scrollToSection('specials')}>Today’s Specials</button>
+                  <button className="btn" onClick={() => scrollToSection('gallery')}>View Gallery</button>
                 </div>
               </div>
               <div className="hero-media card fade-in">
@@ -143,7 +143,7 @@ Details: ${message || '-'}`;
                       <span className="badge" aria-label={`Price ${currency(sp.price)}`}>{currency(sp.price)}</span>
                     </div>
                     <p className="card-sub">{sp.desc}</p>
-                    <button className="btn btn-secondary" onClick={() => scrollToSection('order')}>Order Now</button>
+                    <button className="btn" onClick={() => scrollToSection('order')}>Order Now</button>
                   </div>
                 </div>
               )}
@@ -235,7 +235,7 @@ function Navbar({ onNavigate }) {
           <a className="nav-link" href="#specials" onClick={(e)=>{e.preventDefault();onNavigate('specials')}}>Specials</a>
           <a className="nav-link" href="#gallery" onClick={(e)=>{e.preventDefault();onNavigate('gallery')}}>Gallery</a>
           <a className="nav-link" href="#testimonials" onClick={(e)=>{e.preventDefault();onNavigate('testimonials')}}>Reviews</a>
-          <button className="btn" onClick={()=>onNavigate('order')}>Order</button>
+          <button className="btn btn-primary" onClick={()=>onNavigate('order')}>Order</button>
         </div>
       </div>
     </nav>
@@ -292,7 +292,7 @@ function MenuHighlights() {
       {items.map((i) => (
         <div key={i.name} className="card" style={{ padding: 12, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <span>{i.name}</span>
-          <span className="badge" style={{ background: 'rgba(245,158,11,0.12)', color: '#92400E' }}>{i.tag}</span>
+          <span className="badge" style={{ background: 'rgba(37,99,235,0.08)', color: 'var(--primary)' }}>{i.tag}</span>
         </div>
       ))}
     </div>
@@ -310,11 +310,11 @@ function Carousel({ items, index, onPrev, onNext, renderItem, trackRef }) {
         {items.map((item) => renderItem(item))}
       </div>
       <div className="carousel-controls">
-        <button className="btn btn-secondary" onClick={onPrev} aria-label="Previous">‹</button>
+        <button className="btn" onClick={onPrev} aria-label="Previous">‹</button>
         <div className="dot-group" style={{ display: 'inline-flex', gap: 6 }}>
           {items.map((_, i) => <div key={i} className={`dot ${index === i ? 'active' : ''}`} />)}
         </div>
-        <button className="btn" onClick={onNext} aria-label="Next">›</button>
+        <button className="btn btn-primary" onClick={onNext} aria-label="Next">›</button>
       </div>
     </div>
   );
@@ -326,7 +326,7 @@ function ImageModal({ item, onClose }) {
       <div className="modal" onClick={(e)=>e.stopPropagation()}>
         <div className="modal-header">
           <strong>{item.title}</strong>
-          <button className="btn btn-secondary" onClick={onClose}>Close</button>
+          <button className="btn" onClick={onClose}>Close</button>
         </div>
         <div className="modal-body">
           <div style={{ borderRadius: 12, overflow: 'hidden' }}>
@@ -400,8 +400,8 @@ function OrderForm({ onSubmit }) {
       </div>
       <hr className="divider" />
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
-        <button disabled={sending} className="btn" onClick={() => submit('whatsapp')}>{sending ? 'Sending…' : 'Send via WhatsApp'}</button>
-        <button disabled={sending} className="btn btn-secondary" onClick={() => submit('email')}>{sending ? 'Sending…' : 'Send via Email'}</button>
+        <button disabled={sending} className="btn btn-primary" onClick={() => submit('whatsapp')}>{sending ? 'Sending…' : 'Send via WhatsApp'}</button>
+        <button disabled={sending} className="btn" onClick={() => submit('email')}>{sending ? 'Sending…' : 'Send via Email'}</button>
       </div>
     </div>
   );
@@ -431,7 +431,7 @@ function Footer({ onNavigate }) {
               <div><strong>Address:</strong> 123 Cocoa Ave, Suite 5</div>
             </div>
             <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
-              <a className="btn btn-secondary" href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
+              <a className="btn" href="https://instagram.com" target="_blank" rel="noreferrer">Instagram</a>
               <a className="btn" href="https://facebook.com" target="_blank" rel="noreferrer">Facebook</a>
             </div>
           </div>

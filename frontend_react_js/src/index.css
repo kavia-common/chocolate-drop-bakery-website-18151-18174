@@ -1,16 +1,20 @@
-/* Ocean Professional Global Styles */
+/* Ocean Professional Global Styles (refined) */
 :root {
   --primary: #2563EB;
-  --secondary: #F59E0B;
-  --success: #F59E0B;
-  --error: #EF4444;
+  --secondary: #F59E0B; /* used sparingly as accent */
   --bg: #f9fafb;
   --surface: #ffffff;
   --text: #111827;
   --muted: #6b7280;
-  --ring: rgba(37, 99, 235, 0.25);
-  --shadow: 0 10px 20px rgba(17, 24, 39, 0.06), 0 2px 6px rgba(17, 24, 39, 0.04);
+  --ring: rgba(37, 99, 235, 0.22);
+  --shadow: 0 8px 18px rgba(17, 24, 39, 0.06), 0 2px 6px rgba(17, 24, 39, 0.04);
   --radius: 16px;
+
+  /* motion */
+  --ease: cubic-bezier(.2,.8,.2,1);
+  --fast: 160ms;
+  --normal: 240ms;
+  --slow: 360ms;
 }
 
 *,
@@ -29,8 +33,12 @@ body {
     Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji", sans-serif;
   color: var(--text);
-  background: linear-gradient(180deg, rgba(37,99,235,0.06), transparent 18%) fixed, var(--bg);
-  line-height: 1.6;
+  background:
+    linear-gradient(180deg, rgba(37,99,235,0.05), transparent 22%) fixed,
+    var(--bg);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img {
@@ -51,7 +59,7 @@ a {
 }
 
 .section {
-  padding: 56px 0;
+  padding: 64px 0;
 }
 
 .card {
@@ -61,6 +69,7 @@ a {
   border: 1px solid rgba(17,24,39,0.06);
 }
 
+/* Buttons: keep only primary CTA as colored, others appear as subtle ghost by default */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -68,26 +77,65 @@ a {
   gap: 8px;
   padding: 12px 16px;
   border-radius: 999px;
-  border: none;
+  border: 1px solid rgba(17,24,39,0.08);
   cursor: pointer;
-  background: radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,0.9), rgba(255,255,255,0) 60%) , linear-gradient(135deg, var(--primary), #1D4ED8);
-  color: #fff;
+  background: #fff;
+  color: var(--text);
   font-weight: 600;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25), 0 2px 6px rgba(17, 24, 39, 0.06);
-  transition: transform .2s ease, box-shadow .2s ease, filter .2s ease, opacity .2s ease;
+  box-shadow: none;
+  transition:
+    transform var(--normal) var(--ease),
+    box-shadow var(--normal) var(--ease),
+    background-color var(--normal) var(--ease),
+    color var(--normal) var(--ease),
+    border-color var(--normal) var(--ease),
+    opacity var(--normal) var(--ease),
+    filter var(--normal) var(--ease);
 }
 .btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 14px 28px rgba(37, 99, 235, 0.28), 0 4px 10px rgba(17, 24, 39, 0.08);
-  filter: brightness(1.02);
+  border-color: rgba(17,24,39,0.15);
+  box-shadow: 0 6px 18px rgba(17,24,39,0.06);
 }
 .btn:active {
   transform: translateY(0);
 }
 
+/* Primary CTA: single strong color usage */
+.btn-primary {
+  border: none;
+  background:
+    radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,0.85), rgba(255,255,255,0) 60%),
+    linear-gradient(135deg, var(--primary), #1D4ED8);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(37, 99, 235, 0.24), 0 4px 10px rgba(17, 24, 39, 0.06);
+}
+.btn-primary:hover {
+  box-shadow: 0 16px 30px rgba(37, 99, 235, 0.28), 0 6px 14px rgba(17, 24, 39, 0.08);
+  filter: brightness(1.02);
+}
+
+/* Secondary becomes subtle outline to remove extra color noise */
 .btn-secondary {
-  background: radial-gradient(120% 120% at 0% 0%, rgba(255,255,255,0.9), rgba(255,255,255,0) 60%) , linear-gradient(135deg, var(--secondary), #DC7A00);
-  color: #0b0b0b;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid rgba(17,24,39,0.12);
+  box-shadow: none;
+}
+.btn-secondary:hover {
+  border-color: rgba(17,24,39,0.18);
+  box-shadow: 0 6px 18px rgba(17,24,39,0.06);
+}
+
+/* Quiet link/button text style for minimal accents */
+.btn-ghost {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--muted);
+}
+.btn-ghost:hover {
+  color: var(--text);
+  border-color: rgba(17,24,39,0.08);
 }
 
 .badge {
@@ -110,7 +158,10 @@ a {
   background: #fff;
   box-shadow: 0 1px 0 rgba(17,24,39,0.02) inset;
   outline: none;
-  transition: box-shadow .2s ease, border-color .2s ease, transform .2s ease;
+  transition:
+    box-shadow var(--fast) var(--ease),
+    border-color var(--fast) var(--ease),
+    transform var(--fast) var(--ease);
 }
 .input:focus, .textarea:focus, .select:focus {
   border-color: var(--primary);
@@ -118,14 +169,14 @@ a {
 }
 
 .label {
-  font-size: 14px;
+  font-size: 13px;
   color: var(--muted);
   font-weight: 600;
 }
 
 .grid {
   display: grid;
-  gap: 16px;
+  gap: 18px;
 }
 
 hr.divider {
@@ -135,9 +186,9 @@ hr.divider {
   margin: 24px 0;
 }
 
-/* Animations */
+/* Animations: smoother timing */
 .fade-in {
-  animation: fadeIn .6s ease both;
+  animation: fadeIn var(--slow) var(--ease) both;
 }
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(6px); }
@@ -145,7 +196,7 @@ hr.divider {
 }
 
 .slide {
-  transition: transform .4s ease, opacity .4s ease;
+  transition: transform var(--slow) var(--ease), opacity var(--slow) var(--ease);
 }
 
 /* Utility */
@@ -153,7 +204,7 @@ hr.divider {
 .muted { color: var(--muted); }
 
 @media (min-width: 640px) {
-  .section { padding: 72px 0; }
+  .section { padding: 80px 0; }
   .grid.sm-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
